@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SD Negeri Harapan | Sekolah Ramah Anak</title>
+  <meta name="description" content="Website resmi SD Negeri Harapan. Informasi profil sekolah, program unggulan, berita, agenda, dan pendaftaran peserta didik baru."/>
+  <meta name="theme-color" content="#0ea5e9" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f8fafc; --card:#ffffff; --txt:#0f172a; --muted:#64748b; --pri:#0ea5e9; --pri-dark:#0284c7; --acc:#22c55e; --ring: rgba(14,165,233,.35)
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;color:var(--txt);background:var(--bg);}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{width:min(1140px, 92%);margin-inline:auto}
+    .btn{display:inline-block;padding:.75rem 1rem;border-radius:999px;font-weight:600;background:var(--pri);color:#fff;box-shadow:0 6px 16px rgba(2,132,199,.25);transition:.2s}
+    .btn:hover{background:var(--pri-dark);transform:translateY(-1px)}
+    .btn.ghost{background:transparent;color:var(--pri);border:2px solid var(--pri)}
+    .badge{display:inline-flex;gap:.5rem;align-items:center;border:1px solid #e2e8f0;color:var(--muted);padding:.25rem .5rem;border-radius:999px;font-size:.8rem;background:#fff}
+    .shadow{box-shadow:0 6px 24px rgba(2,8,23,.08)}
+    .card{background:var(--card);border:1px solid #e2e8f0;border-radius:1rem}
+    .grid{display:grid;gap:1rem}
+    .grid-3{grid-template-columns:repeat(3,1fr)}
+    .grid-2{grid-template-columns:repeat(2,1fr)}
+    @media (max-width: 900px){.grid-3,.grid-2{grid-template-columns:1fr}}
+
+    /* Header */
+    header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid #e2e8f0}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:.75rem 0}
+    .brand{display:flex;gap:.75rem;align-items:center;font-weight:800}
+    .brand .logo{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--pri),#38bdf8);display:grid;place-items:center;color:white;font-weight:800}
+    nav ul{display:flex;gap:1rem;list-style:none;margin:0;padding:0}
+    .menu-btn{display:none}
+    @media (max-width:900px){
+      nav ul{display:none}
+      .menu-btn{display:inline-flex;align-items:center;gap:.5rem;border:1px solid #e2e8f0;padding:.5rem .75rem;border-radius:.75rem;background:#fff}
+      .mobile{display:none;position:absolute;inset:64px 0 auto 0;background:#fff;border-bottom:1px solid #e2e8f0}
+      .mobile a{display:block;padding:1rem 1.25rem;border-top:1px solid #f1f5f9}
+      .mobile.show{display:block}
+    }
+
+    /* Hero */
+    .hero{padding:4rem 0 2rem;background:linear-gradient(180deg,#ecfeff,transparent)}
+    .hero-inner{display:grid;grid-template-columns:1.15fr .85fr;gap:2rem;align-items:center}
+    .hero h1{font-size:clamp(1.8rem, 1.2rem + 2.6vw, 3rem);line-height:1.1;margin:.25rem 0}
+    .hero p{color:var(--muted);font-size:1.05rem}
+    .hero .stats{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.25rem}
+    .hero .stats .pill{background:#fff;border:1px solid #e2e8f0;padding:.75rem 1rem;border-radius:.75rem}
+    @media (max-width:900px){.hero-inner{grid-template-columns:1fr}}
+
+    /* Sections */
+    section{padding:3rem 0}
+    .section-title{display:flex;justify-content:space-between;align-items:end;gap:1rem;margin-bottom:1.25rem}
+    .section-title h2{margin:0;font-size:1.6rem}
+    .muted{color:var(--muted)}
+
+    /* Cards */
+    .program-card{padding:1rem}
+    .program-card h3{margin:.25rem 0}
+
+    /* News */
+    .news-item{display:flex;gap:1rem}
+    .news-item img{width:160px;height:110px;object-fit:cover;border-radius:.75rem}
+    @media (max-width:700px){.news-item{flex-direction:column}.news-item img{width:100%;height:180px}}
+
+    /* Timeline */
+    .timeline{position:relative;margin-left:.75rem}
+    .timeline:before{content:"";position:absolute;left:10px;top:0;bottom:0;width:2px;background:#e2e8f0}
+    .step{position:relative;padding-left:2.25rem;margin:1.25rem 0}
+    .bullet{position:absolute;left:0;top:.25rem;width:22px;height:22px;border-radius:999px;background:#fff;border:2px solid var(--pri);display:grid;place-items:center;font-size:.8rem;font-weight:700;color:var(--pri)}
+
+    /* Gallery */
+    .gallery{display:grid;grid-template-columns:repeat(6,1fr);gap:.5rem}
+    .gallery img{border-radius:.5rem;height:120px;object-fit:cover}
+    @media(max-width:900px){.gallery{grid-template-columns:repeat(3,1fr)}.gallery img{height:100px}}
+
+    /* Contact */
+    form{display:grid;gap:.75rem}
+    input,textarea,select{width:100%;padding:.75rem;border-radius:.75rem;border:1px solid #e2e8f0;background:#fff}
+    input:focus,textarea:focus,select:focus{outline:3px solid var(--ring);border-color:var(--pri)}
+    textarea{min-height:120px}
+
+    /* Footer */
+    footer{padding:2rem 0;background:#0b1220;color:#cbd5e1}
+    footer a{color:#e2e8f0}
+    .footgrid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:1.25rem}
+    @media(max-width:900px){.footgrid{grid-template-columns:1fr}}
+    .copyright{border-top:1px solid #1f2937;margin-top:1rem;padding-top:1rem;font-size:.9rem;color:#94a3b8}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">SD</div>
+        <div>
+          <div>SD Negeri Harapan</div>
+          <small class="muted">Sekolah Ramah Anak & Berkarakter</small>
+        </div>
+      </div>
+      <nav aria-label="Navigasi utama">
+        <ul>
+          <li><a href="#profil">Profil</a></li>
+          <li><a href="#program">Program</a></li>
+          <li><a href="#berita">Berita</a></li>
+          <li><a href="#agenda">Agenda</a></li>
+          <li><a href="#ppdb">PPDB</a></li>
+          <li><a href="#kontak">Kontak</a></li>
+        </ul>
+        <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu">Menu ▾</button>
+      </nav>
+    </div>
+    <div id="mobileMenu" class="mobile" role="dialog" aria-label="Menu seluler">
+      <a href="#profil">Profil</a>
+      <a href="#program">Program</a>
+      <a href="#berita">Berita</a>
+      <a href="#agenda">Agenda</a>
+      <a href="#ppdb">PPDB</a>
+      <a href="#kontak">Kontak</a>
+    </div>
+  </header>
+
+  <!-- Hero / Headline -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div>
+        <span class="badge">🏫 Selamat datang di website resmi sekolah</span>
+        <h1>Belajar Nyaman, Berprestasi Gemilang</h1>
+        <p>SD Negeri Harapan berkomitmen mewujudkan pembelajaran aktif, inklusif, dan berorientasi pada karakter. Bersama guru-guru profesional, kami menyiapkan generasi beriman, berilmu, dan berakhlak mulia.</p>
+        <div class="stats">
+          <div class="pill">👩🏻‍🏫 32 Guru & Tendik</div>
+          <div class="pill">👧🏻 520 Siswa</div>
+          <div class="pill">🏆 48 Prestasi 3 thn</div>
+        </div>
+        <div style="margin-top:1.25rem;display:flex;gap:.75rem;flex-wrap:wrap">
+          <a class="btn" href="#ppdb">Daftar PPDB</a>
+          <a class="btn ghost" href="#profil">Lihat Profil</a>
+        </div>
+      </div>
+      <div class="card shadow" aria-hidden="true">
+        <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?q=80&w=1200&auto=format&fit=crop" alt="Siswa belajar di kelas" style="border-radius:1rem"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- Profil -->
+  <section id="profil">
+    <div class="container">
+      <div class="section-title">
+        <h2>Profil Sekolah</h2>
+        <span class="muted">Tentang kami secara singkat</span>
+      </div>
+      <div class="grid grid-3">
+        <div class="card program-card shadow">
+          <h3>Visi</h3>
+          <p class="muted">“Mewujudkan peserta didik yang berkarakter, literat, numerat, berwawasan lingkungan, dan berprestasi.”</p>
+        </div>
+        <div class="card program-card shadow">
+          <h3>Misi</h3>
+          <ul class="muted">
+            <li>Menumbuhkan budaya literasi & numerasi.</li>
+            <li>Menerapkan pembelajaran aktif & diferensiasi.</li>
+            <li>Menguatkan profil pelajar Pancasila.</li>
+          </ul>
+        </div>
+        <div class="card program-card shadow">
+          <h3>Fasilitas</h3>
+          <p class="muted">Ruang kelas nyaman, perpustakaan, laboratorium TIK, UKS, lapangan olahraga, mushola, area bermain ramah anak.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Program Unggulan -->
+  <section id="program" style="background:#f1f5f9">
+    <div class="container">
+      <div class="section-title">
+        <h2>Program Unggulan</h2>
+        <a class="btn ghost" href="#">Lihat Semua</a>
+      </div>
+      <div class="grid grid-3">
+        <article class="card program-card shadow">
+          <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1200&auto=format&fit=crop" alt="Kegiatan literasi" style="border-radius:.75rem"/>
+          <h3>Gerakan Literasi Sekolah</h3>
+          <p class="muted">15 menit membaca setiap pagi, pojok baca di setiap kelas, dan klub menulis.</p>
+        </article>
+        <article class="card program-card shadow">
+          <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop" alt="Projek P5" style="border-radius:.75rem"/>
+          <h3>Projek Profil Pelajar Pancasila (P5)</h3>
+          <p class="muted">Tema kewirausahaan, kearifan lokal, dan gaya hidup berkelanjutan.</p>
+        </article>
+        <article class="card program-card shadow">
+          <img src="https://images.unsplash.com/photo-1596495578065-8ae9ce1c94c8?q=80&w=1200&auto=format&fit=crop" alt="Ekstrakurikuler" style="border-radius:.75rem"/>
+          <h3>Ekstrakurikuler</h3>
+          <p class="muted">Pramuka, drumband, tahfidz, sains klub, futsal, tari, dan seni rupa.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Berita -->
+  <section id="berita">
+    <div class="container">
+      <div class="section-title">
+        <h2>Berita Terkini</h2>
+        <span class="muted">Kabar terbaru dari sekolah</span>
+      </div>
+      <div class="grid">
+        <article class="card shadow" style="padding:1rem">
+          <div class="news-item">
+            <img src="https://images.unsplash.com/photo-1596495577886-d920f1fb7238?q=80&w=1200&auto=format&fit=crop" alt="Lomba sains"/>
+            <div>
+              <h3>Tim Sains Raih Juara 1 Tingkat Kota</h3>
+              <p class="muted">Dipublikasikan 10 Agustus 2025 • Oleh Humas</p>
+              <p>Selamat kepada peserta didik yang meraih prestasi pada Olimpiade Sains Kota. Terima kasih atas dukungan guru pembina dan orang tua.</p>
+            </div>
+          </div>
+        </article>
+        <article class="card shadow" style="padding:1rem">
+          <div class="news-item">
+            <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=1200&auto=format&fit=crop" alt="Ruang kelas baru"/>
+            <div>
+              <h3>Peresmian Ruang Kelas Baru</h3>
+              <p class="muted">Dipublikasikan 1 Agustus 2025 • Oleh Tata Usaha</p>
+              <p>Penambahan dua ruang kelas baru untuk menunjang kenyamanan belajar dan pengurangan rombongan belajar padat.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Agenda -->
+  <section id="agenda" style="background:#f1f5f9">
+    <div class="container">
+      <div class="section-title">
+        <h2>Agenda</h2>
+        <span class="muted">Catat tanggal penting</span>
+      </div>
+      <div class="timeline">
+        <div class="step">
+          <div class="bullet">13</div>
+          <div>
+            <strong>13 Agustus 2025</strong> — Rapat Orang Tua Siswa Baru
+          </div>
+        </div>
+        <div class="step">
+          <div class="bullet">20</div>
+          <div>
+            <strong>20 Agustus 2025</strong> — Lomba HUT RI Antar Kelas
+          </div>
+        </div>
+        <div class="step">
+          <div class="bullet">02</div>
+          <div>
+            <strong>2 September 2025</strong> — Asesmen Sumatif Tengah Semester (ASTS)
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PPDB / Admission -->
+  <section id="ppdb">
+    <div class="container">
+      <div class="section-title">
+        <h2>Informasi PPDB</h2>
+        <span class="muted">Penerimaan Peserta Didik Baru</span>
+      </div>
+      <div class="grid grid-2">
+        <div class="card shadow" style="padding:1rem">
+          <h3>Syarat Pendaftaran</h3>
+          <ul class="muted">
+            <li>Usia minimal sesuai ketentuan.</li>
+            <li>Fotokopi KK & Akta Kelahiran.</li>
+            <li>Pas foto 3×4 (2 lembar).</li>
+            <li>Mengisi formulir pendaftaran.</li>
+          </ul>
+          <a class="btn" href="#kontak">Tanya Panitia</a>
+        </div>
+        <div class="card shadow" style="padding:1rem">
+          <h3>Alur PPDB</h3>
+          <ol class="muted">
+            <li>Daftar online/offline.</li>
+            <li>Verifikasi berkas.</li>
+            <li>Pengumuman hasil.</li>
+            <li>Daftar ulang.</li>
+          </ol>
+          <a class="btn ghost" href="#">Unduh Brosur</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galeri -->
+  <section>
+    <div class="container">
+      <div class="section-title">
+        <h2>Galeri</h2>
+        <span class="muted">Suasana kegiatan belajar</span>
+      </div>
+      <div class="gallery">
+        <img src="https://images.unsplash.com/photo-1596495578065-8ae9ce1c94c8?q=80&w=800&auto=format&fit=crop" alt="Galeri 1">
+        <img src="https://images.unsplash.com/photo-1529078155058-5d716f45d604?q=80&w=800&auto=format&fit=crop" alt="Galeri 2">
+        <img src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?q=80&w=800&auto=format&fit=crop" alt="Galeri 3">
+        <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=800&auto=format&fit=crop" alt="Galeri 4">
+        <img src="https://images.unsplash.com/photo-1523246191819-22f80b4f9c42?q=80&w=800&auto=format&fit=crop" alt="Galeri 5">
+        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=800&auto=format&fit=crop" alt="Galeri 6">
+      </div>
+    </div>
+  </section>
+
+  <!-- Kontak -->
+  <section id="kontak" style="background:#f1f5f9">
+    <div class="container">
+      <div class="section-title">
+        <h2>Kontak</h2>
+        <span class="muted">Hubungi kami jika ada pertanyaan</span>
+      </div>
+      <div class="grid grid-2">
+        <div class="card shadow" style="padding:1rem">
+          <h3>Alamat</h3>
+          <p class="muted">Jl. Pendidikan No. 123, Kecamatan Cerdas, Kota Maju 12345</p>
+          <p class="muted">Email: humas@sdharapan.sch.id • Telp: (0411) 123456</p>
+          <iframe title="Peta lokasi sekolah" style="width:100%;height:220px;border:0;border-radius:.75rem" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.752269167428!2d119.431!3d-5.12!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMDcnMTIuMCJTIDExOcKwMjUnNTEuNiJF!5e0!3m2!1sid!2sid!4v1680000000000"></iframe>
+        </div>
+        <div class="card shadow" style="padding:1rem">
+          <h3>Kirim Pesan</h3>
+          <!-- Opsional: ganti action dengan Formspree atau endpoint Anda -->
+          <form action="#" method="post" onsubmit="event.preventDefault(); alert('Terima kasih, pesan Anda telah terkirim (simulasi).'); this.reset();">
+            <label>Nama
+              <input type="text" name="nama" required placeholder="Nama lengkap"/>
+            </label>
+            <label>Email
+              <input type="email" name="email" required placeholder="alamat@email.com"/>
+            </label>
+            <label>Pesan
+              <textarea name="pesan" required placeholder="Tulis pertanyaan Anda..."></textarea>
+            </label>
+            <button class="btn" type="submit">Kirim</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footgrid">
+      <div>
+        <div class="brand" style="margin-bottom:.5rem">
+          <div class="logo" aria-hidden="true">SD</div>
+          <div>
+            <div>SD Negeri Harapan</div>
+            <small>"Berkarakter, Cerdas, Peduli"</small>
+          </div>
+        </div>
+        <p style="color:#9fb1c5">Website resmi sekolah untuk informasi layanan pendidikan. Konten dapat diperbarui sewaktu-waktu.</p>
+      </div>
+      <div>
+        <strong>Tautan</strong>
+        <ul style="list-style:none;padding:0;line-height:2;color:#cbd5e1">
+          <li><a href="#profil">Profil</a></li>
+          <li><a href="#program">Program</a></li>
+          <li><a href="#berita">Berita</a></li>
+          <li><a href="#ppdb">PPDB</a></li>
+        </ul>
+      </div>
+      <div>
+        <strong>Media Sosial</strong>
+        <ul style="list-style:none;padding:0;line-height:2;color:#cbd5e1">
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container copyright">© <span id="year"></span> SD Negeri Harapan. Seluruh hak cipta dilindungi.</div>
+  </footer>
+
+  <script>
+    // Tahun dinamis
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Menu mobile
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn?.addEventListener('click', ()=>{
+      const open = mobileMenu.classList.toggle('show');
+      menuBtn.setAttribute('aria-expanded', open ? 'true':'false');
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href');
+        if(id && id.length>1){
+          e.preventDefault();
+          document.querySelector(id)?.scrollIntoView({behavior:'smooth'});
+          mobileMenu.classList.remove('show');
+          menuBtn?.setAttribute('aria-expanded','false');
+        }
+      })
+    });
+  </script>
+</body>
+</html>
